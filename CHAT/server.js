@@ -11,7 +11,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.use('/', (req, res) => {
-    res.render('index.html');
+    res.render('login.html');
 });
 
 let messages = [];
@@ -30,6 +30,10 @@ io.on('connection', socket => {
         socket.broadcast.emit('receivedMessage', data);
         console.log(data);
     });
+});
+
+io.on('disconnect', socket => {
+    console.log(`Socket desconectado: ${socket.id}`);
 });
 
 function RC4(key, text){
@@ -60,3 +64,4 @@ function RC4(key, text){
 
 
 server.listen(3000);
+console.log("Servidor rodando em http://localhost:3000");
